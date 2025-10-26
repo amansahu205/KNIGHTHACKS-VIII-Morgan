@@ -1,0 +1,10 @@
+{
+  "language": "python",
+  "style": "clean, modular, with docstrings",
+  "rules": [
+    "Use structured JSON responses in agents",
+    "Keep all prompts reusable via config/prompts.yaml",
+    "Never hardcode API keys",
+    "Write functions with clear input/output signatures"
+  ]
+}

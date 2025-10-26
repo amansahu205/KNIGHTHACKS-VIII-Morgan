@@ -1,0 +1,26 @@
+# Environment and API keys
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Temp sandbox
+temp/*
+
+# Data that shouldn't go to GitHub
+data/processed/*
+*.log
+*.jsonl
+*.sqlite
+*.csv
+*.zip
+
+# Streamlit, FastAPI cache
+*.db
+*.session_state.json
+
+# IDE / OS files
+.vscode/
+.idea/
+.DS_Store
