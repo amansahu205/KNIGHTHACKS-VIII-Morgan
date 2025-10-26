@@ -1,0 +1,171 @@
+Case #2024-PI-7890
+Client: Amanda Chen
+Attorney: Robert Martinez
+Date Opened: March 15, 2024
+Case Type: Personal Injury - Premises Liability (Slip and Fall)
+
+═══════════════════════════════════════════════════════════════════
+INCIDENT DETAILS
+═══════════════════════════════════════════════════════════════════
+
+Date of Incident: February 28, 2024
+Time: 2:30 PM
+Location: FreshMart Grocery Store, 456 Market Street, San Francisco, CA
+
+Description:
+Client was shopping in the produce section when she slipped on water that
+had accumulated on the floor from the automatic misting system for vegetables.
+No warning signs, wet floor cones, or barriers were present. Client fell
+backward, striking her head and injuring her lower back.
+
+═══════════════════════════════════════════════════════════════════
+LEGAL ISSUES FOR RESEARCH
+═══════════════════════════════════════════════════════════════════
+
+PRIMARY LEGAL QUESTIONS:
+
+1. DUTY OF CARE
+   What duty does a commercial property owner (grocery store) owe to 
+   customers (business invitees) regarding hazardous conditions on the 
+   premises?
+   
+   Specific Issue: Does the store have a duty to inspect for and remedy 
+   hazardous conditions created by their own equipment (misting system)?
+
+2. NOTICE AND KNOWLEDGE
+   What constitutes "actual notice" vs "constructive notice" of a 
+   hazardous condition?
+   
+   Specific Issue: Store employees testified they knew the misting system 
+   sometimes caused water accumulation. Does this establish actual notice?
+
+3. BREACH OF DUTY
+   What actions constitute breach of the duty of care in premises liability?
+   
+   Specific Issue: Failure to place warning signs or barriers around a 
+   known hazardous condition.
+
+4. CAUSATION
+   What is the standard for establishing causation in slip and fall cases?
+   
+   Specific Issue: Direct causation between wet floor and client's injuries.
+
+5. COMPARATIVE NEGLIGENCE
+   How does California's comparative negligence doctrine apply?
+   
+   Specific Issue: Defense may argue client should have seen the water.
+   Need precedents on what constitutes reasonable care by plaintiff.
+
+6. DAMAGES
+   What types of damages are recoverable in premises liability cases?
+   
+   Specific Issue: Medical expenses, lost wages, pain and suffering,
+   future medical care for ongoing back issues.
+
+═══════════════════════════════════════════════════════════════════
+RELEVANT FACTS FOR LEGAL ANALYSIS
+═══════════════════════════════════════════════════════════════════
+
+SUPPORTING OUR CASE:
+✓ Store's own equipment (misting system) created the hazard
+✓ Store employees testified they were aware misting caused water buildup
+✓ No warning signs or wet floor cones were present
+✓ Store incident report confirms water on floor at time of fall
+✓ Security camera footage shows client walking normally before slip
+✓ Multiple employees witnessed the incident
+✓ Client required emergency medical treatment
+✓ Documented injuries: concussion, lumbar strain, ongoing back pain
+✓ Client has missed 3 weeks of work (documented lost wages)
+
+DEFENSE ARGUMENTS TO COUNTER:
+⚠ Defense claims water was "open and obvious" hazard
+⚠ Defense argues client should have exercised more caution
+⚠ Defense suggests client may have been distracted by phone
+⚠ Defense claims injuries are pre-existing or exaggerated
+
+═══════════════════════════════════════════════════════════════════
+JURISDICTION & APPLICABLE LAW
+═══════════════════════════════════════════════════════════════════
+
+Jurisdiction: California State Court (Superior Court, San Francisco County)
+
+Applicable Law:
+- California Civil Code § 1714 (general negligence duty)
+- California premises liability case law
+- California comparative negligence doctrine (Li v. Yellow Cab)
+
+Case Type: Tort - Premises Liability - Slip and Fall
+
+═══════════════════════════════════════════════════════════════════
+RESEARCH REQUESTS
+═══════════════════════════════════════════════════════════════════
+
+PRIORITY 1 - DUTY OF CARE:
+Research California precedents establishing duty of care owed by business
+owners to invitees. Need cases specifically addressing:
+- Rowland v. Christian (duty to invitees)
+- Business owner's duty to maintain safe premises
+- Duty regarding hazards created by owner's own equipment/operations
+
+PRIORITY 2 - ACTUAL NOTICE:
+Research cases defining "actual notice" of hazardous conditions.
+Need precedents showing that employee knowledge = store knowledge.
+
+PRIORITY 3 - FAILURE TO WARN:
+Research cases where failure to post warning signs constituted breach.
+Need precedents on duty to warn of known hazards.
+
+PRIORITY 4 - COMPARATIVE NEGLIGENCE:
+Research California comparative negligence cases, particularly:
+- Li v. Yellow Cab Co. (establishing pure comparative negligence)
+- Cases addressing "open and obvious" defense
+- Plaintiff's duty to exercise reasonable care
+
+PRIORITY 5 - DAMAGES:
+Research cases supporting damages for:
+- Pain and suffering in slip and fall cases
+- Future medical expenses for ongoing conditions
+- Lost earning capacity
+
+═══════════════════════════════════════════════════════════════════
+DESIRED RESEARCH OUTPUT
+═══════════════════════════════════════════════════════════════════
+
+For each legal issue, we need:
+
+1. 2-3 relevant California precedents (or federal if applicable)
+2. Proper legal citations
+3. Summary of each case's holding
+4. Explanation of how each case supports our arguments
+5. Distinguishing factors from defense precedents
+6. Legal reasoning synthesis showing strength of our case
+
+Focus on:
+- Recent California Court of Appeal and Supreme Court decisions
+- Cases with similar facts (grocery store, wet floor, misting system)
+- Landmark premises liability cases
+- Cases establishing favorable legal standards
+
+═══════════════════════════════════════════════════════════════════
+ATTORNEY NOTES
+═══════════════════════════════════════════════════════════════════
+
+This is a strong premises liability case. The store created the hazard
+through their own equipment, had actual knowledge of the recurring problem,
+and failed to take reasonable precautions (warning signs, barriers, or
+fixing the misting system).
+
+We need solid legal precedents to:
+1. Establish clear duty of care
+2. Prove breach through failure to warn
+3. Counter the "open and obvious" defense
+4. Support our damages claims
+
+The research should focus on California law, particularly cases from the
+California Supreme Court and Courts of Appeal. Rowland v. Christian is
+our foundational case, but we need more recent precedents with similar
+facts.
+
+Client is credible, injuries are well-documented, and liability appears
+clear. Strong legal research will help us negotiate a favorable settlement
+or prevail at trial.

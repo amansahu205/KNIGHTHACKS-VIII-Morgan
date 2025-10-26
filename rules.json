@@ -5,6 +5,12 @@
     "Use structured JSON responses in agents",
     "Keep all prompts reusable via config/prompts.yaml",
     "Never hardcode API keys",
-    "Write functions with clear input/output signatures"
+    "Write functions with clear input/output signatures",
+    "All exploratory or test scripts must be created inside the /temp directory",
+    "Never modify files in backend/ or frontend/ unless explicitly instructed",
+    "Name test files as temp/tests/test_<feature>.py",
+    "Always follow the saved project memory.",
+    "Never delete or overwrite agent files unless explicitly asked.",
+    "Store all debug/test files in /temp/."
   ]
 }

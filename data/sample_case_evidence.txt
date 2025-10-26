@@ -1,0 +1,312 @@
+Case #2024-PI-8888
+Client: Emily Watson
+Attorney: David Chen
+Date Opened: March 25, 2024
+Case Type: Personal Injury - Slip and Fall (Premises Liability)
+
+═══════════════════════════════════════════════════════════════════
+COMPLETE EVIDENCE INVENTORY
+═══════════════════════════════════════════════════════════════════
+
+MEDICAL EVIDENCE
+═══════════════════════════════════════════════════════════════════
+
+[EXHIBIT M-1] Emergency Room Report
+Provider: Memorial Hospital Emergency Department
+Date of Service: February 15, 2024, 5:15 PM
+Treating Physician: Dr. Amanda Foster, MD
+Chief Complaint: Right wrist pain and right hip pain after fall
+Diagnosis: Right wrist sprain (Grade 2), Right hip contusion
+Treatment: X-ray (negative for fracture), splint applied, pain medication
+Discharge Instructions: Follow up with orthopedist within 1 week
+Status: ✓ VERIFIED - Original document with hospital seal
+
+[EXHIBIT M-2] X-Ray Results - Right Wrist
+Facility: Memorial Hospital Radiology
+Date: February 15, 2024
+Radiologist: Dr. James Patterson, MD
+Finding: No acute fracture detected. Soft tissue swelling present.
+Status: ✓ VERIFIED - Original radiology report
+
+[EXHIBIT M-3] Orthopedic Consultation Report
+Provider: Dr. Patricia Williams, Orthopedic Specialist
+Date: February 22, 2024
+Assessment: Moderate wrist sprain with ligament damage
+Treatment Plan: Immobilization for 4 weeks, physical therapy recommended
+Prognosis: Good with proper treatment, 6-8 weeks recovery expected
+Status: ✓ VERIFIED - Original on letterhead
+
+[EXHIBIT M-4] Physical Therapy Evaluation
+Provider: Wellness Physical Therapy Center
+Therapist: Lisa Anderson, PT, DPT
+Date: March 1, 2024
+Initial Assessment: Reduced range of motion, pain level 6/10
+Treatment Plan: 12 sessions over 6 weeks
+Status: ✓ VERIFIED - Signed evaluation form
+
+[EXHIBIT M-5] Physical Therapy Progress Notes
+Dates: March 1, 8, 15, 22, 2024 (4 sessions completed)
+Status: ⚠ PARTIAL - Only 4 of 12 sessions documented
+Note: Remaining 8 sessions still in progress
+
+[EXHIBIT M-6] Prescription Records
+Pharmacy: CVS Pharmacy
+Dates: February 15 - March 15, 2024
+Medications: Ibuprofen 800mg, Cyclobenzaprine 10mg
+Status: ✓ VERIFIED - Pharmacy printout with dates and costs
+
+[MISSING] MRI of Right Wrist
+Mentioned in: Dr. Williams' notes dated March 15, 2024
+Status: ❌ ORDERED BUT NOT YET PERFORMED
+Note: Scheduled for April 5, 2024 at Advanced Imaging Center
+
+PHOTOGRAPHIC EVIDENCE
+═══════════════════════════════════════════════════════════════════
+
+[EXHIBIT P-1] Accident Scene Photographs
+Date Taken: February 15, 2024 (immediately after incident)
+Photographer: Store security staff
+Count: 8 digital photos
+Content: Wet floor in produce section, no warning signs visible
+Metadata: Verified timestamp and location data
+Status: ✓ VERIFIED - Digital files with EXIF data intact
+
+[EXHIBIT P-2] Injury Photographs - Initial
+Date: February 15, 2024 (at ER)
+Count: 4 photos
+Content: Swelling and bruising on right wrist and hip
+Photographer: ER nurse (with patient consent)
+Status: ✓ VERIFIED - Hospital photo documentation
+
+[EXHIBIT P-3] Injury Photographs - Follow-up
+Dates: February 18, 22, March 1, 2024
+Count: 12 photos total
+Content: Progression of bruising and swelling
+Photographer: Client (Emily Watson)
+Status: ✓ VERIFIED - Digital files with timestamps
+
+[EXHIBIT P-4] Store Layout Diagram
+Date: February 16, 2024
+Created by: Store manager (David Wilson)
+Content: Floor plan showing produce section and incident location
+Status: ✓ VERIFIED - Original diagram with manager signature
+
+[MISSING] Surveillance Video
+Mentioned in: Store incident report
+Status: ❌ REQUESTED BUT NOT PROVIDED
+Note: Store claims video system was not recording that day
+
+FINANCIAL EVIDENCE
+═══════════════════════════════════════════════════════════════════
+
+[EXHIBIT F-1] Emergency Room Bill
+Provider: Memorial Hospital
+Date: February 15, 2024
+Amount: $2,847.50
+Breakdown: ER visit ($1,200), X-ray ($850), Supplies ($797.50)
+Status: ✓ VERIFIED - Original itemized bill
+
+[EXHIBIT F-2] Orthopedic Consultation Invoice
+Provider: Dr. Patricia Williams
+Date: February 22, 2024
+Amount: $450.00
+Status: ✓ VERIFIED - Original invoice
+
+[EXHIBIT F-3] Physical Therapy Invoices
+Provider: Wellness PT Center
+Dates: March 1, 8, 15, 22, 2024
+Amount per session: $185.00
+Total to date: $740.00 (4 sessions)
+Projected total: $2,220.00 (12 sessions)
+Status: ✓ VERIFIED - Copies of invoices
+
+[EXHIBIT F-4] Prescription Costs
+Pharmacy: CVS
+Total medication costs: $127.50
+Status: ✓ VERIFIED - Pharmacy receipts
+
+[EXHIBIT F-5] Lost Wage Documentation
+Employer: TechStart Inc.
+Position: Marketing Manager
+Salary: $65,000/year ($250/day)
+Days Missed: February 16-20, 2024 (5 days)
+Lost Wages: $1,250.00
+Status: ✓ VERIFIED - Letter from HR on company letterhead
+
+[EXHIBIT F-6] Transportation Costs
+Medical appointments: 6 trips (ER, orthopedist, PT sessions)
+Mileage: 78 miles total @ $0.67/mile
+Total: $52.26
+Status: ✓ VERIFIED - Mileage log with dates and addresses
+
+CORRESPONDENCE
+═══════════════════════════════════════════════════════════════════
+
+[EXHIBIT C-1] Initial Demand Letter to Store
+Date Sent: March 1, 2024
+Recipient: SuperMart Corporate Legal Department
+Demand Amount: $25,000
+Status: ✓ VERIFIED - Certified mail receipt
+
+[EXHIBIT C-2] Store's Response Letter
+Date Received: March 10, 2024
+Content: Denial of liability, claims floor was not wet
+Status: ✓ VERIFIED - Original letter on corporate letterhead
+
+[EXHIBIT C-3] Email Exchange with Store Manager
+Dates: February 16-20, 2024
+Participants: Emily Watson, David Wilson (store manager)
+Content: Discussion of incident, request for video footage
+Count: 8 emails
+Status: ✓ VERIFIED - Email thread printed with headers
+
+[EXHIBIT C-4] Text Messages with Witness
+Dates: February 15-16, 2024
+Participants: Emily Watson, Maria Garcia (witness/store employee)
+Content: Immediate post-incident communication
+Status: ✓ VERIFIED - Screenshots with timestamps
+
+[EXHIBIT C-5] Insurance Correspondence
+Carrier: Allstate Insurance (store's liability carrier)
+Dates: March 5-20, 2024
+Content: Claim filing and initial response
+Claim Number: AL-789012-2024
+Status: ✓ VERIFIED - Copies of all correspondence
+
+TESTIMONIAL EVIDENCE
+═══════════════════════════════════════════════════════════════════
+
+[EXHIBIT T-1] Client Statement
+Date: February 18, 2024
+Recorded by: Paralegal Jennifer Martinez
+Format: Typed transcript (12 pages)
+Content: Detailed account of incident and injuries
+Status: ✓ VERIFIED - Signed and notarized
+
+[EXHIBIT T-2] Witness Statement - Maria Garcia
+Date: February 21, 2024
+Witness: Maria Garcia (store employee, produce section)
+Format: Recorded interview, transcribed (8 pages)
+Content: Witnessed fall, confirms floor was wet, no warning signs
+Status: ✓ VERIFIED - Signed statement
+
+[EXHIBIT T-3] Witness Statement - Customer
+Date: February 25, 2024
+Witness: Robert Thompson (customer in store)
+Format: Written statement (3 pages)
+Content: Saw client fall, confirms wet floor
+Status: ✓ VERIFIED - Signed and dated
+
+[MISSING] Store Manager Deposition
+Status: ❌ NOT YET SCHEDULED
+Note: Requested deposition date, awaiting response from store's attorney
+
+OFFICIAL DOCUMENTS
+═══════════════════════════════════════════════════════════════════
+
+[EXHIBIT O-1] Store Incident Report
+Date: February 15, 2024
+Completed by: David Wilson (store manager)
+Report #: SM-2024-0215-001
+Content: Confirms incident occurred, floor was wet from produce misting
+Status: ✓ VERIFIED - Original report with manager signature
+
+[EXHIBIT O-2] Paramedic Report
+Date: February 15, 2024
+Unit: Fire Rescue 7
+Report #: FR7-2024-0215-14
+Content: Response to store, patient assessment, transport to hospital
+Status: ✓ VERIFIED - Official fire department report
+
+[EXHIBIT O-3] Building Inspection Records
+Date: January 2024 (monthly inspection)
+Inspector: County Health Department
+Content: Store passed inspection, no safety violations noted
+Status: ✓ VERIFIED - Official inspection certificate
+
+[EXHIBIT O-4] Store Maintenance Logs
+Dates: February 1-15, 2024
+Content: Daily cleaning and maintenance records
+Note: No entry for produce section floor on day of incident
+Status: ⚠ QUESTIONABLE - Incomplete logs, missing entries
+
+EXPERT EVIDENCE
+═══════════════════════════════════════════════════════════════════
+
+[EXHIBIT E-1] Medical Expert Opinion
+Expert: Dr. Patricia Williams, Orthopedic Specialist
+Date: March 20, 2024
+Opinion: Injuries consistent with slip and fall, treatment appropriate
+Causation: Injuries directly caused by fall on wet surface
+Status: ✓ VERIFIED - Signed expert report
+
+[MISSING] Safety Expert Analysis
+Status: ❌ NOT YET RETAINED
+Note: Need expert to analyze store's safety procedures and maintenance
+
+PHYSICAL EVIDENCE
+═══════════════════════════════════════════════════════════════════
+
+[EXHIBIT PH-1] Clothing Worn During Incident
+Items: Shoes (Nike running shoes), pants (jeans)
+Condition: Shoes show water stains, pants torn at knee
+Storage: Preserved in evidence bag
+Status: ✓ VERIFIED - Photographed and stored
+
+[EXHIBIT PH-2] Wrist Splint
+Item: Medical splint from ER
+Condition: As applied by ER staff
+Status: ✓ VERIFIED - Preserved as evidence
+
+═══════════════════════════════════════════════════════════════════
+EVIDENCE SUMMARY
+═══════════════════════════════════════════════════════════════════
+
+TOTAL EXHIBITS: 30
+- Medical: 6 (1 pending)
+- Photographic: 4 (1 missing)
+- Financial: 6
+- Correspondence: 5
+- Testimonial: 3 (1 pending)
+- Official: 4
+- Expert: 1 (1 needed)
+- Physical: 2
+
+VERIFIED: 27 exhibits
+PARTIAL/QUESTIONABLE: 1 exhibit
+MISSING/PENDING: 4 items
+
+═══════════════════════════════════════════════════════════════════
+MISSING EVIDENCE ANALYSIS
+═══════════════════════════════════════════════════════════════════
+
+CRITICAL MISSING ITEMS:
+1. Surveillance video (store claims not recording)
+2. MRI results (scheduled for April 5)
+3. Store manager deposition (not yet scheduled)
+4. Safety expert analysis (not yet retained)
+
+ACTIONS NEEDED:
+1. Subpoena surveillance video system records
+2. Follow up on MRI appointment
+3. Schedule store manager deposition
+4. Retain safety/premises liability expert
+5. Request complete maintenance logs from store
+6. Obtain remaining PT progress notes as treatment continues
+
+═══════════════════════════════════════════════════════════════════
+ATTORNEY NOTES
+═══════════════════════════════════════════════════════════════════
+
+Strong case with comprehensive evidence documentation.
+Medical evidence clearly establishes injury and causation.
+Multiple witnesses corroborate wet floor and lack of warning signs.
+Store's own incident report confirms hazardous condition.
+
+Evidence organization is good but need to:
+- Pursue missing surveillance video aggressively
+- Complete expert witness retention
+- Prepare evidence binders by category for trial
+- Create chronological timeline with evidence references
+
+Estimated case value: $35,000-$50,000 based on current evidence.
