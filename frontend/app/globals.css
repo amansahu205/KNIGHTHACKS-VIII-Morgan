@@ -4,11 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --morgan-red: #d71920;
-  --morgan-gold: #ffd700;
-  --morgan-dark-red: #8b0000;
-  --morgan-cream: #fff8dc;
-  --morgan-dark: #1a0000;
+  --morgan-red: #8B1F1F;
+  --morgan-gold: #D4AF37;
+  --morgan-dark-red: #5A1414;
+  --morgan-cream: #F5F5DC;
+  --morgan-dark: #2B1515;
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -137,7 +137,7 @@
   }
 
   body {
-    background: linear-gradient(135deg, #d71920 0%, #b01518 50%, #8b0000 100%);
+    background: linear-gradient(135deg, #2B1515 0%, #3D1F1F 50%, #1A0F0F 100%);
     color: white;
     min-height: 100vh;
   }
@@ -145,6 +145,6 @@
 
 @layer utilities {
   .shadow-glow {
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), 0 0 40px rgba(215, 25, 32, 0.2);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2), 0 0 40px rgba(139, 31, 31, 0.15);
   }
 }

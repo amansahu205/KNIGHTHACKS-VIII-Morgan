@@ -99,6 +99,13 @@ export default function Home() {
             confidence: output.confidence_score,
             requiresApproval: true,
             status: "pending" as const,
+            // Enhanced Communication Guru fields
+            sentimentScore: output.sentiment_score,
+            emotionDetected: output.emotion_detected,
+            urgencyLevel: output.urgency_level,
+            recommendedMethod: output.recommended_method,
+            callRecommendation: output.call_recommendation,
+            triggerKeywords: output.trigger_keywords,
           }))
 
         setMessages((prev) => [...prev, ...agentMessages])
@@ -203,7 +210,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="flex-1 overflow-y-auto p-6">
-              <ChatInterface messages={messages} onMessageAction={handleMessageAction} />
+              <ChatInterface messages={messages} onMessageAction={handleMessageAction} caseMetadata={metadata} />
             </div>
           )}
 

@@ -16,44 +16,51 @@ export function ActionToolbar({ metadata }: ActionToolbarProps) {
   const { toast } = useToast()
 
   const handleCallClient = async () => {
-    if (!metadata?.client_name) {
-      toast({
-        title: "Missing Information",
-        description: "Client information not available",
-        variant: "destructive",
-      })
-      return
-    }
-
     setIsLoading(true)
 
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+      
+      // Use your verified phone number
+      const clientPhone = "+12404984206"
+      const caseId = metadata?.case_number || "TOOLBAR-CALL"
+      const clientName = metadata?.client_name || "Client"
 
-      const response = await fetch(`${apiUrl}/call_client`, {
+      const requestBody = {
+        to_number: String(clientPhone),
+        case_id: String(caseId),
+        client_name: String(clientName)
+      }
+
+      const response = await fetch(`${apiUrl}/api/calls/initiate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          client_name: metadata.client_name,
-          phone: metadata.phone || "555-0100",
-          reason: "Case review follow-up",
-        }),
+        body: JSON.stringify(requestBody),
       })
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`)
-      }
 
       const data = await response.json()
 
-      toast({
-        title: "Call Initiated",
-        description: data.message || `Calling ${metadata.client_name}...`,
-      })
+      if (!response.ok) {
+        throw new Error(data.message || data.error || `API error: ${response.status}`)
+      }
+
+      if (data.status === "success") {
+        toast({
+          title: "Call Initiated Successfully!",
+          description: `Calling ${clientPhone}... Call SID: ${data.call_sid}`,
+        })
+      } else if (data.status === "mock") {
+        toast({
+          title: "Call Initiated (Mock Mode)",
+          description: "Configure Twilio credentials for real calls",
+        })
+      } else {
+        throw new Error(data.message || "Unknown error")
+      }
     } catch (error) {
-      console.error("[v0] Call error:", error)
+      console.error("Call error:", error)
       toast({
         title: "Call Failed",
         description: error instanceof Error ? error.message : "Unknown error",
@@ -71,11 +78,64 @@ export function ActionToolbar({ metadata }: ActionToolbarProps) {
     })
   }
 
-  const handleScheduleMeeting = () => {
-    toast({
-      title: "Calendar Opened",
-      description: "Select a meeting time...",
-    })
+  const handleScheduleMeeting = async () => {
+    setIsLoading(true)
+
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+      
+      const clientName = metadata?.client_name || "Client"
+      const caseId = metadata?.case_number || "UNKNOWN"
+      
+      // Schedule meeting for tomorrow at 2 PM
+      const tomorrow = new Date()
+      tomorrow.setDate(tomorrow.getDate() + 1)
+      const preferredDate = tomorrow.toISOString().split('T')[0]
+      const preferredTime = "14:00"
+
+      const response = await fetch(`${apiUrl}/api/calendar/schedule`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          client_name: clientName,
+          case_id: caseId,
+          duration_minutes: 30,
+          preferred_date: preferredDate,
+          preferred_time: preferredTime
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || data.error || `API error: ${response.status}`)
+      }
+
+      if (data.status === "mock" || data.status === "mock_created") {
+        toast({
+          title: "Meeting Scheduled (Mock Mode)",
+          description: `Meeting with ${clientName} scheduled for tomorrow at 2:00 PM`,
+        })
+      } else if (data.status === "created") {
+        toast({
+          title: "Meeting Scheduled Successfully!",
+          description: `Meeting with ${clientName} added to Google Calendar`,
+        })
+      } else {
+        throw new Error(data.message || "Unknown error")
+      }
+    } catch (error) {
+      console.error("Schedule meeting error:", error)
+      toast({
+        title: "Scheduling Failed",
+        description: error instanceof Error ? error.message : "Unknown error",
+        variant: "destructive",
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -88,14 +148,14 @@ export function ActionToolbar({ metadata }: ActionToolbarProps) {
         <Button
           onClick={handleCallClient}
           disabled={isLoading}
-          className="bg-[#D71920] hover:bg-[#B01518] text-white shadow-glow hover:scale-105 transition-transform font-sans"
+          className="bg-[#8B1F1F] hover:bg-[#5A1414] text-white shadow-glow hover:scale-105 transition-transform font-sans"
         >
           <Phone className="w-4 h-4 mr-2" />
           Call Client
         </Button>
         <Button
           onClick={handleSendEmail}
-          className="bg-[#FFD700] hover:bg-[#FFD700]/90 text-[#8B0000] shadow-glow hover:scale-105 transition-transform font-sans"
+          className="bg-[#D4AF37] hover:bg-[#B8941F] text-[#2B1515] shadow-glow hover:scale-105 transition-transform font-sans"
         >
           <Mail className="w-4 h-4 mr-2" />
           Send Email

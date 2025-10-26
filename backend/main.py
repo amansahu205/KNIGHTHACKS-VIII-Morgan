@@ -3,13 +3,39 @@ FastAPI Backend for KNIGHTHACKS-VIII-Morgan
 AI Legal Tender Multi-Agent System
 """
 
-from fastapi import FastAPI, File, UploadFile, HTTPException
+print("[DEBUG] main.py is being loaded...")
+
+from fastapi import FastAPI, File, UploadFile, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
+from pydantic import BaseModel
+from typing import Optional
 import uvicorn
 
 # Import orchestrator router function
 from orchestrator.router import process_case_file
+
+# Import Twilio service (optional - will use mock mode if import fails)
+try:
+    from utils.twilio_service import twilio_service
+    TWILIO_AVAILABLE = True
+    print("[OK] Twilio service loaded successfully")
+except Exception as e:
+    print(f"[WARNING] Twilio service failed to load: {e}")
+    print("[WARNING] Running in mock mode")
+    TWILIO_AVAILABLE = False
+    twilio_service = None
+
+# Import Calendar service (optional - will use mock mode if import fails)
+try:
+    from utils.calendar_service import calendar_service
+    CALENDAR_AVAILABLE = True
+    print("[OK] Calendar service loaded successfully")
+except Exception as e:
+    print(f"[WARNING] Calendar service failed to load: {e}")
+    print("[WARNING] Running in mock mode")
+    CALENDAR_AVAILABLE = False
+    calendar_service = None
 
 
 # Initialize FastAPI app
@@ -88,6 +114,339 @@ async def upload_case_file(file: UploadFile = File(...)):
         raise HTTPException(
             status_code=500,
             detail=f"Error processing file: {str(e)}"
+        )
+
+
+# ============================================
+# Twilio Voice Call Endpoints
+# ============================================
+
+@app.get("/test")
+async def test_endpoint():
+    """Test endpoint to verify routes are working"""
+    return {"status": "test endpoint works"}
+
+
+class CallRequest(BaseModel):
+    """Request model for initiating a call"""
+    to_number: str
+    case_id: Optional[str] = "UNKNOWN"
+    client_name: Optional[str] = "Client"
+    from_number: Optional[str] = None
+
+
+class SMSRequest(BaseModel):
+    """Request model for sending SMS"""
+    to_number: str
+    message: str
+    from_number: Optional[str] = None
+
+
+@app.post("/api/calls/initiate")
+async def initiate_call(request: CallRequest):
+    """
+    Initiate a phone call to client
+    
+    Request body:
+    {
+        "to_number": "+15551234567",
+        "case_id": "2024-PI-9999",
+        "client_name": "Sarah Martinez",
+        "from_number": "+15559876543"  // optional
+    }
+    
+    Returns:
+        Call details including SID and status
+    """
+    if not twilio_service:
+        raise HTTPException(
+            status_code=500,
+            detail="Twilio service not available. Check server logs for import errors."
+        )
+    
+    try:
+        result = twilio_service.initiate_call(
+            to_number=request.to_number,
+            from_number=request.from_number,
+            case_id=request.case_id,
+            client_name=request.client_name
+        )
+        
+        return JSONResponse(
+            status_code=200 if result["status"] in ["success", "mock"] else 500,
+            content=result
+        )
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error initiating call: {str(e)}"
+        )
+
+
+@app.get("/api/calls/{call_sid}/status")
+async def get_call_status(call_sid: str):
+    """
+    Get current status of a call
+    
+    Args:
+        call_sid: Twilio Call SID
+        
+    Returns:
+        Call status details
+    """
+    try:
+        result = twilio_service.get_call_status(call_sid)
+        
+        return JSONResponse(
+            status_code=200 if result["status"] in ["success", "mock"] else 404,
+            content=result
+        )
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error fetching call status: {str(e)}"
+        )
+
+
+@app.get("/api/calls/{call_sid}/recording")
+async def get_call_recording(call_sid: str):
+    """
+    Get recording URL for a completed call
+    
+    Args:
+        call_sid: Twilio Call SID
+        
+    Returns:
+        Recording details including URL
+    """
+    try:
+        result = twilio_service.get_call_recording(call_sid)
+        
+        return JSONResponse(
+            status_code=200 if result["status"] == "success" else 404,
+            content=result
+        )
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error fetching recording: {str(e)}"
+        )
+
+
+@app.post("/api/calls/status")
+async def call_status_callback(request: Request):
+    """
+    Webhook endpoint for Twilio call status updates
+    
+    Twilio will POST to this endpoint with call status updates
+    """
+    form_data = await request.form()
+    
+    # Log the callback data
+    print(f"📞 Call Status Update: {dict(form_data)}")
+    
+    # Generate TwiML response
+    twiml = twilio_service.generate_call_twiml()
+    
+    return Response(content=twiml, media_type="application/xml")
+
+
+@app.post("/api/calls/status/recording")
+async def recording_status_callback(request: Request):
+    """
+    Webhook endpoint for Twilio recording status updates
+    """
+    form_data = await request.form()
+    
+    # Log the recording data
+    print(f"🎙️ Recording Status Update: {dict(form_data)}")
+    
+    # Here you would typically:
+    # 1. Save recording URL to database
+    # 2. Trigger transcription service
+    # 3. Run AI analysis on transcription
+    
+    return JSONResponse(content={"status": "received"})
+
+
+@app.post("/api/sms/send")
+async def send_sms(request: SMSRequest):
+    """
+    Send SMS message to client
+    
+    Request body:
+    {
+        "to_number": "+15551234567",
+        "message": "Your appointment is confirmed for tomorrow at 2 PM.",
+        "from_number": "+15559876543"  // optional
+    }
+    
+    Returns:
+        Message details
+    """
+    try:
+        result = twilio_service.send_sms(
+            to_number=request.to_number,
+            message=request.message,
+            from_number=request.from_number
+        )
+        
+        return JSONResponse(
+            status_code=200 if result["status"] in ["success", "mock"] else 500,
+            content=result
+        )
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error sending SMS: {str(e)}"
+        )
+
+
+# ============================================
+# Google Calendar Endpoints
+# ============================================
+
+from datetime import datetime, timedelta
+
+class MeetingRequest(BaseModel):
+    """Request model for scheduling a meeting"""
+    client_name: str
+    client_email: Optional[str] = None
+    case_id: Optional[str] = None
+    duration_minutes: int = 30
+    preferred_date: Optional[str] = None  # ISO format date
+    preferred_time: Optional[str] = None  # HH:MM format
+
+
+@app.post("/api/calendar/schedule")
+async def schedule_meeting(request: MeetingRequest):
+    """
+    Schedule a meeting with a client
+    
+    Request body:
+    {
+        "client_name": "Sarah Martinez",
+        "client_email": "sarah@example.com",
+        "case_id": "2024-PI-9999",
+        "duration_minutes": 30,
+        "preferred_date": "2024-10-27",
+        "preferred_time": "14:00"
+    }
+    
+    Returns:
+        Meeting details including calendar event
+    """
+    if not calendar_service:
+        # Mock mode
+        return JSONResponse(
+            status_code=200,
+            content={
+                "status": "mock",
+                "message": "Meeting scheduled (mock mode)",
+                "event_id": f"mock_event_{datetime.now().timestamp()}",
+                "client_name": request.client_name,
+                "date": request.preferred_date or "TBD",
+                "time": request.preferred_time or "TBD"
+            }
+        )
+    
+    try:
+        # Parse date and time
+        if request.preferred_date and request.preferred_time:
+            start_dt = datetime.fromisoformat(f"{request.preferred_date}T{request.preferred_time}:00")
+        else:
+            # Default to tomorrow at 2 PM
+            start_dt = datetime.now() + timedelta(days=1)
+            start_dt = start_dt.replace(hour=14, minute=0, second=0, microsecond=0)
+        
+        end_dt = start_dt + timedelta(minutes=request.duration_minutes)
+        
+        # Create calendar event
+        event = await calendar_service.create_event(
+            summary=f"Client Meeting - {request.client_name}",
+            description=f"Case: {request.case_id or 'N/A'}\nClient: {request.client_name}",
+            start_time=start_dt,
+            end_time=end_dt,
+            attendees=[request.client_email] if request.client_email else None
+        )
+        
+        return JSONResponse(
+            status_code=200,
+            content={
+                "status": event.get("status"),
+                "event_id": event.get("id"),
+                "client_name": request.client_name,
+                "start_time": start_dt.isoformat(),
+                "end_time": end_dt.isoformat(),
+                "calendar_link": event.get("htmlLink"),
+                "message": f"Meeting scheduled with {request.client_name}"
+            }
+        )
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error scheduling meeting: {str(e)}"
+        )
+
+
+@app.get("/api/calendar/available-slots")
+async def get_available_slots(
+    duration: int = 30,
+    days_ahead: int = 7
+):
+    """
+    Get available time slots for scheduling
+    
+    Query params:
+        duration: Meeting duration in minutes (default: 30)
+        days_ahead: How many days to look ahead (default: 7)
+    
+    Returns:
+        List of available time slots
+    """
+    if not calendar_service:
+        # Mock available slots
+        now = datetime.now()
+        mock_slots = []
+        for i in range(1, 6):
+            slot_time = now + timedelta(days=i, hours=2)
+            mock_slots.append({
+                "start": slot_time.isoformat(),
+                "end": (slot_time + timedelta(minutes=duration)).isoformat(),
+                "formatted": slot_time.strftime("%A, %B %d at %I:%M %p")
+            })
+        
+        return JSONResponse(
+            status_code=200,
+            content={
+                "status": "mock",
+                "slots": mock_slots
+            }
+        )
+    
+    try:
+        slots = await calendar_service.find_available_slots(
+            duration_minutes=duration,
+            days_ahead=days_ahead
+        )
+        
+        return JSONResponse(
+            status_code=200,
+            content={
+                "status": "success",
+                "slots": slots
+            }
+        )
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error finding available slots: {str(e)}"
         )
 
 

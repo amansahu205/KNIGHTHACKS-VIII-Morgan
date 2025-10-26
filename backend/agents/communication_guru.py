@@ -1,11 +1,13 @@
 """
-Client Communication Guru Agent
-Generates empathetic, professional client messages based on case context
+Client Communication Guru Agent - Enhanced
+Generates empathetic, professional client messages based on case context.
+Now includes sentiment analysis, urgency detection, and call recommendations.
 """
 
 import os
 import json
-from typing import Dict, Any
+from typing import Dict, Any, List
+from datetime import datetime
 from openai import AsyncOpenAI
 from anthropic import AsyncAnthropic
 
@@ -43,19 +45,35 @@ async def run(text: str, task: Dict[str, Any]) -> Dict[str, Any]:
     # Get LLM provider from environment (default to OpenAI)
     provider = os.getenv("DEFAULT_LLM_PROVIDER", "openai").lower()
     
-    # Build structured prompt
-    system_prompt = """You are an expert legal communication specialist helping attorneys draft empathetic, professional client messages.
+    # Build enhanced structured prompt
+    system_prompt = """You are an expert legal communication specialist with emotional intelligence capabilities.
 
 Your role:
-1. Analyze the client's emotional state and concerns from the case context
-2. Draft a compassionate, clear message that addresses their needs
-3. Maintain professional legal communication standards
-4. Provide reasoning for your communication approach
+1. SENTIMENT ANALYSIS: Analyze the client's emotional state and calculate a sentiment score (0-100)
+   - 0-30: Calm, satisfied
+   - 31-50: Slightly concerned
+   - 51-70: Worried, anxious
+   - 71-85: Frustrated, distressed
+   - 86-100: Extremely upset, angry, emergency
 
-Always respond in valid JSON format with these exact keys:
-- tone: string describing the client's emotional state
-- message_draft: string with the complete drafted message
-- reasoning: string explaining your communication strategy"""
+2. URGENCY DETECTION: Determine response urgency based on:
+   - Emotional distress level
+   - Time-sensitive keywords (urgent, emergency, deadline, court date)
+   - Multiple unanswered attempts
+   - Financial stress indicators
+   - Legal deadline mentions
+
+3. COMMUNICATION METHOD: Recommend the best way to respond:
+   - CALL: High sentiment score (>70), complex emotions, urgent matters
+   - EMAIL: Low-medium sentiment (<70), simple questions, routine updates
+   - BOTH: Critical situations requiring immediate call + written follow-up
+
+4. RESPONSE CONTENT:
+   - If CALL recommended: Provide talking points for the attorney
+   - If EMAIL recommended: Draft empathetic email
+   - Always provide reasoning for your recommendation
+
+Always respond in valid JSON format with ALL required keys."""
 
     user_prompt = f"""Case Context:
 {text}
@@ -63,14 +81,38 @@ Always respond in valid JSON format with these exact keys:
 Task Details:
 {json.dumps(task, indent=2)}
 
-Based on this case information, analyze the client's tone and draft an empathetic message the attorney can send.
+Analyze this case and provide a comprehensive communication recommendation.
 
-Respond ONLY with valid JSON in this exact format:
+Respond ONLY with valid JSON in this EXACT format:
 {{
     "tone": "description of client's emotional state",
-    "message_draft": "complete drafted message for the client",
-    "reasoning": "explanation of communication approach"
-}}"""
+    "sentiment_score": 75,
+    "emotion_detected": "frustrated_anxious",
+    "trigger_keywords": ["worried", "frustrated", "urgent"],
+    "urgency_level": "HIGH",
+    "response_timeframe": "within_2_hours",
+    "recommended_method": "call",
+    "call_recommendation": {{
+        "should_call": true,
+        "urgency": "within_2_hours",
+        "reason": "Client shows high frustration and needs immediate reassurance",
+        "talking_points": [
+            "Acknowledge their frustration",
+            "Explain next steps clearly",
+            "Provide specific timeline",
+            "Reassure with firm's experience"
+        ]
+    }},
+    "message_draft": "complete drafted email message",
+    "reasoning": "explanation of communication strategy"
+}}
+
+IMPORTANT:
+- sentiment_score must be 0-100 integer
+- urgency_level must be: LOW, MEDIUM, HIGH, or CRITICAL
+- recommended_method must be: call, email, or both
+- If recommended_method is "email", set call_recommendation.should_call to false
+- Always include all fields even if some are null"""
 
     try:
         if provider == "anthropic":
@@ -81,9 +123,21 @@ Respond ONLY with valid JSON in this exact format:
         return result
         
     except Exception as e:
-        # Return error in structured format
+        # Return error in structured format with all required fields
         return {
             "tone": "error",
+            "sentiment_score": 0,
+            "emotion_detected": "unknown",
+            "trigger_keywords": [],
+            "urgency_level": "MEDIUM",
+            "response_timeframe": "within_24_hours",
+            "recommended_method": "email",
+            "call_recommendation": {
+                "should_call": False,
+                "urgency": "not_applicable",
+                "reason": "Error occurred during analysis",
+                "talking_points": []
+            },
             "message_draft": "",
             "reasoning": f"Error generating communication: {str(e)}",
             "error": str(e)
@@ -154,16 +208,27 @@ async def _call_anthropic(system_prompt: str, user_prompt: str) -> Dict[str, Any
 
 # Agent metadata for orchestrator
 AGENT_INFO = {
-    "name": "Client Communication Guru",
-    "description": "Drafts empathetic, professional client messages",
+    "name": "Client Communication Guru (Enhanced)",
+    "description": "Analyzes client sentiment, detects urgency, and recommends communication method (call vs email)",
     "capabilities": [
-        "Tone analysis",
-        "Empathetic message generation",
+        "Sentiment analysis (0-100 score)",
+        "Emotion detection",
+        "Urgency assessment",
+        "Call vs email recommendation",
+        "Talking points generation",
+        "Empathetic message drafting",
         "Professional legal communication",
-        "Context-aware drafting"
+        "Context-aware strategy"
     ],
     "output_schema": {
         "tone": "string",
+        "sentiment_score": "integer (0-100)",
+        "emotion_detected": "string",
+        "trigger_keywords": "array of strings",
+        "urgency_level": "enum (LOW, MEDIUM, HIGH, CRITICAL)",
+        "response_timeframe": "string",
+        "recommended_method": "enum (call, email, both)",
+        "call_recommendation": "object",
         "message_draft": "string",
         "reasoning": "string"
     }

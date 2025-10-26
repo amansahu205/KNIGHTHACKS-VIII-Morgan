@@ -1,0 +1,47 @@
+CASE FILE: #2024-PI-9999
+CLIENT: Sarah Martinez
+CASE TYPE: Personal Injury - Car Accident
+DATE OF INCIDENT: January 15, 2024
+INSURANCE COMPANY: SafeGuard Insurance
+
+===== CLIENT EMAIL - RECEIVED TODAY 10:30 AM =====
+
+Subject: URGENT - Very Frustrated and Worried About My Case
+
+Hi,
+
+I'm writing because I'm extremely frustrated and worried about what's happening with my case. I've been trying to reach someone for the past week and haven't gotten any response to my emails or voicemails.
+
+The insurance company called me AGAIN yesterday and I don't know what to tell them. They're pressuring me to accept their settlement offer of $15,000, but I don't understand if that's fair or not. My medical bills alone are over $30,000!
+
+I'm really stressed about this. I can't afford to keep missing work for doctor appointments, and I'm worried I'm going to lose my job. The pain in my back hasn't gotten better, and now the insurance company is saying they want to do an "independent medical examination" - what does that even mean? Are they trying to say I'm lying?
+
+I trusted your firm to help me, but I feel like I'm being left in the dark. I need to know what's going on with my case. This is affecting my life every single day and I'm at my breaking point.
+
+Please call me as soon as possible. I need answers and I need to understand what's happening. My phone number is (555) 123-4567. I'm available anytime today or tomorrow.
+
+I'm very upset and I don't know what to do anymore.
+
+Sarah Martinez
+
+===== CASE NOTES =====
+
+- Client has called office 4 times in past week
+- Left 3 voicemails
+- Sent 2 previous emails (unanswered due to attorney on trial)
+- Insurance company lowball offer: $15,000
+- Client's medical bills: $32,450
+- Lost wages: $8,200
+- Case value estimate: $75,000-$95,000
+- IME (Independent Medical Exam) scheduled by insurance - standard procedure
+- Client needs immediate reassurance and explanation
+- Attorney available for call today after 2 PM
+
+===== ANALYSIS NEEDED =====
+
+Communication Guru should:
+1. Detect high frustration and anxiety
+2. Calculate sentiment score
+3. Recommend immediate phone call
+4. Provide talking points for attorney
+5. Draft backup email if call unsuccessful
