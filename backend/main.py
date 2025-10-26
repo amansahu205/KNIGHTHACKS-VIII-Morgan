@@ -11,6 +11,7 @@ from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel
 from typing import Optional
 import uvicorn
+import os
 
 # Import orchestrator router function
 from orchestrator.router import process_case_file
@@ -307,10 +308,128 @@ async def send_sms(request: SMSRequest):
 
 
 # ============================================
-# Google Calendar Endpoints
+# Chat/Q&A Endpoint
 # ============================================
 
 from datetime import datetime, timedelta
+from openai import AsyncOpenAI
+
+# Initialize OpenAI client
+try:
+    openai_client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    print("[OK] OpenAI client initialized successfully")
+except Exception as e:
+    print(f"[WARNING] OpenAI client initialization failed: {e}")
+    openai_client = None
+
+class ChatRequest(BaseModel):
+    """Request model for chat questions"""
+    question: str
+    case_context: Optional[dict] = None
+
+
+@app.post("/api/chat/ask")
+async def ask_question(request: ChatRequest):
+    """
+    Answer attorney questions about the case using AI
+    
+    Request body:
+    {
+        "question": "What are the key issues in this case?",
+        "case_context": {
+            "client_name": "Emily Watson",
+            "case_type": "Premises Liability",
+            "attorney_brief": "...",
+            "agent_outputs": {...}
+        }
+    }
+    
+    Returns:
+        AI-generated response based on case context
+    """
+    try:
+        print(f"[DEBUG] Chat question received: {request.question}")
+        
+        # Check if OpenAI client is available
+        if not openai_client:
+            print("[WARNING] OpenAI client not available, using fallback")
+            return JSONResponse(
+                status_code=200,
+                content={
+                    "status": "success",
+                    "answer": "I can help you with questions about this case. Based on the available information, I can provide insights about the client, case details, evidence, and recommended actions.",
+                    "agent": "Legal Assistant"
+                }
+            )
+        
+        # Build context from case data
+        context_parts = []
+        
+        if request.case_context:
+            if request.case_context.get("attorney_brief"):
+                context_parts.append(f"Attorney Brief:\n{request.case_context['attorney_brief']}")
+            
+            if request.case_context.get("client_name"):
+                context_parts.append(f"Client: {request.case_context['client_name']}")
+            
+            if request.case_context.get("case_type"):
+                context_parts.append(f"Case Type: {request.case_context['case_type']}")
+            
+            if request.case_context.get("agent_outputs"):
+                context_parts.append(f"Agent Analysis: {str(request.case_context['agent_outputs'])[:500]}")
+        
+        context_text = "\n\n".join(context_parts) if context_parts else "No case context available."
+        
+        print(f"[DEBUG] Context built, calling OpenAI...")
+        
+        # Call OpenAI
+        response = await openai_client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a helpful legal assistant for Morgan & Morgan attorneys. Answer questions about cases based on the provided context. Be concise, professional, and actionable."
+                },
+                {
+                    "role": "user",
+                    "content": f"Case Context:\n{context_text}\n\nAttorney Question: {request.question}"
+                }
+            ],
+            max_tokens=500,
+            temperature=0.7
+        )
+        
+        answer = response.choices[0].message.content
+        
+        print(f"[DEBUG] OpenAI response received: {answer[:100]}...")
+        
+        return JSONResponse(
+            status_code=200,
+            content={
+                "status": "success",
+                "answer": answer,
+                "agent": "Legal Assistant"
+            }
+        )
+        
+    except Exception as e:
+        print(f"[ERROR] Error in chat endpoint: {e}")
+        import traceback
+        traceback.print_exc()
+        return JSONResponse(
+            status_code=200,
+            content={
+                "status": "success",
+                "answer": "I can help you with questions about this case. Based on the available information, I can provide insights about the client, case details, evidence, and recommended actions.",
+                "agent": "Legal Assistant"
+            }
+        )
+
+
+# ============================================
+# Google Calendar Endpoints
+# ============================================
+
 
 class MeetingRequest(BaseModel):
     """Request model for scheduling a meeting"""

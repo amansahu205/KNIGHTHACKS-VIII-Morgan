@@ -163,6 +163,58 @@ export default function Home() {
     }
   }
 
+  const handleSendMessage = async (message: string) => {
+    // Add attorney's message
+    const attorneyMessage: Message = {
+      id: `attorney-${Date.now()}`,
+      role: "Attorney",
+      content: message,
+      timestamp: new Date(),
+    }
+    setMessages((prev) => [...prev, attorneyMessage])
+
+    try {
+      // Call backend API with case context
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+      const response = await fetch(`${apiUrl}/api/chat/ask`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question: message,
+          case_context: {
+            client_name: metadata?.client_name?.value,
+            case_type: metadata?.case_type?.value,
+            attorney_brief: attorneyBrief,
+            agent_outputs: agentOutputs
+          }
+        })
+      })
+
+      const data = await response.json()
+      
+      // Add AI response
+      const aiResponse: Message = {
+        id: `ai-${Date.now()}`,
+        role: "AI",
+        content: data.answer || "I can help you with questions about this case.",
+        timestamp: new Date(),
+        agentName: data.agent || "Legal Assistant",
+      }
+      setMessages((prev) => [...prev, aiResponse])
+    } catch (error) {
+      console.error("Chat error:", error)
+      // Fallback response
+      const aiResponse: Message = {
+        id: `ai-${Date.now()}`,
+        role: "AI",
+        content: "I'm having trouble connecting right now. Please try again.",
+        timestamp: new Date(),
+        agentName: "Legal Assistant",
+      }
+      setMessages((prev) => [...prev, aiResponse])
+    }
+  }
+
   const handleModifySubmit = (messageId: string, modifiedContent: string) => {
     setMessages((prev) =>
       prev.map((msg) => (msg.id === messageId ? { ...msg, content: modifiedContent, status: "modified" } : msg)),
@@ -210,7 +262,12 @@ export default function Home() {
             </div>
           ) : (
             <div className="flex-1 overflow-y-auto p-6">
-              <ChatInterface messages={messages} onMessageAction={handleMessageAction} caseMetadata={metadata} />
+              <ChatInterface 
+                messages={messages} 
+                onMessageAction={handleMessageAction} 
+                caseMetadata={metadata}
+                onSendMessage={handleSendMessage}
+              />
             </div>
           )}
 

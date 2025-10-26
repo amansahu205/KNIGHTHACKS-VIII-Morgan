@@ -1,8 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Bot, User, CheckCircle, XCircle, Edit, Phone, Mail, AlertTriangle, Clock } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Bot, User, CheckCircle, XCircle, Edit, Phone, Mail, AlertTriangle, Clock, Send } from "lucide-react"
 
 interface Message {
   id: string
@@ -31,11 +33,36 @@ interface ChatInterfaceProps {
   messages: Message[]
   onMessageAction?: (messageId: string, action: "approve" | "modify" | "reject") => void
   caseMetadata?: any
+  onSendMessage?: (message: string) => void
 }
 
-export function ChatInterface({ messages, onMessageAction, caseMetadata }: ChatInterfaceProps) {
+export function ChatInterface({ messages, onMessageAction, caseMetadata, onSendMessage }: ChatInterfaceProps) {
+  const [inputMessage, setInputMessage] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+
   const handleAction = (messageId: string, action: "approve" | "modify" | "reject") => {
     onMessageAction?.(messageId, action)
+  }
+
+  const handleSend = async () => {
+    if (!inputMessage.trim() || isLoading) return
+    
+    setIsLoading(true)
+    try {
+      if (onSendMessage) {
+        await onSendMessage(inputMessage)
+      }
+      setInputMessage("")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault()
+      handleSend()
+    }
   }
 
   return (
@@ -192,8 +219,8 @@ export function ChatInterface({ messages, onMessageAction, caseMetadata }: ChatI
                               
                               // Extract client info from metadata or use defaults
                               const clientPhone = caseMetadata?.client_phone || "+12404984206"
-                              const caseId = caseMetadata?.case_number || "DEMO-CASE"
-                              const clientName = caseMetadata?.client_name || "Client"
+                              const caseId = caseMetadata?.case_number?.value || "DEMO-CASE"
+                              const clientName = caseMetadata?.client_name?.value || "Client"
                               
                               console.log("Initiating call to:", clientPhone, "Case:", caseId, "Name:", clientName)
                               
@@ -317,6 +344,29 @@ export function ChatInterface({ messages, onMessageAction, caseMetadata }: ChatI
         <div className="text-center py-16 text-white/60">
           <Bot className="w-20 h-20 mx-auto mb-4 opacity-30" />
           <p className="font-sans text-lg">Awaiting case file upload...</p>
+        </div>
+      )}
+
+      {/* Chat Input */}
+      {messages.length > 0 && (
+        <div className="sticky bottom-0 pt-4 pb-2 bg-gradient-to-t from-black/80 to-transparent backdrop-blur-sm">
+          <div className="flex gap-2">
+            <Input
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Ask a question about this case..."
+              disabled={isLoading}
+              className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-[#D4AF37]"
+            />
+            <Button
+              onClick={handleSend}
+              disabled={isLoading || !inputMessage.trim()}
+              className="bg-[#8B1F1F] hover:bg-[#5A1414] text-white"
+            >
+              <Send className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       )}
     </div>

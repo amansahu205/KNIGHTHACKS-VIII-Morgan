@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Merriweather, Poppins } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { Toaster } from "@/components/ui/toaster"
 import "./globals.css"
 
 const merriweather = Merriweather({
@@ -33,6 +34,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         {children}
+        <Toaster />
         <Analytics />
       </body>
     </html>
